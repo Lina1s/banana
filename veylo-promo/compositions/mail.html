@@ -80,7 +80,117 @@
       right: 0;
       bottom: 0;
       background: #ffffff;
+      overflow: hidden;
+    }
+    #mail-msg {
+      position: absolute;
+      inset: 0;
       padding: 56px 96px 0 96px;
+      background: #ffffff;
+      clip-path: inset(150px 0px 722px 0px);
+      opacity: 0;
+      z-index: 2;
+    }
+    #mail-inbox {
+      position: absolute;
+      inset: 0;
+      background: #ffffff;
+      padding: 56px 96px 0 96px;
+    }
+    #ib-title {
+      font-size: 48px;
+      font-weight: 600;
+      height: 94px;
+    }
+    #ib-list {
+      position: relative;
+      height: 600px;
+    }
+    .ib-row {
+      position: absolute;
+      left: -96px;
+      right: -96px;
+      height: 112px;
+      padding: 0 96px;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      border-bottom: 1px solid #ebe7e1;
+      font-size: 30px;
+    }
+    .ib-av {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: none;
+    }
+    .ib-txt {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .ib-from {
+      color: #1d1a1a;
+    }
+    .ib-subj {
+      color: #7b746c;
+      font-size: 28px;
+    }
+    .ib-time {
+      margin-left: auto;
+      color: #7b746c;
+      font-size: 28px;
+    }
+    #ib-new .ib-from,
+    #ib-new .ib-subj {
+      font-weight: 600;
+      color: #1d1a1a;
+    }
+    #ib-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #3d5a80;
+      flex: none;
+      margin-left: -42px;
+      margin-right: 10px;
+    }
+    #mail-toast {
+      position: absolute;
+      right: 48px;
+      top: 120px;
+      width: 660px;
+      height: 140px;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 24px 60px rgba(29, 26, 26, 0.22);
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 30px;
+      z-index: 5;
+    }
+    #mail-toast .t1 {
+      font-size: 28px;
+      font-weight: 600;
+    }
+    #mail-toast .t2 {
+      font-size: 28px;
+      color: #4a4440;
+      margin-top: 6px;
+    }
+    #mail-toast .t0 {
+      position: absolute;
+      right: 30px;
+      top: 22px;
+      font-size: 28px;
+      color: #7b746c;
     }
     #mail-subject {
       font-size: 58px;
@@ -182,6 +292,7 @@
       border-radius: 12px;
       font-family: "Veylo Mono", monospace;
       font-size: 28px;
+      z-index: 3;
     }
     #mail-agent svg {
       width: 44px;
@@ -221,12 +332,13 @@
         <span style="margin-left: auto; font-weight: 400; color: #4a4440">support@company</span>
       </div>
       <div id="mail-side">
-        <div class="mail-folder on"><span>Входящие</span><span>12</span></div>
+        <div class="mail-folder on"><span>Входящие</span><span id="mail-count" style="position: relative"><span id="mail-c12">12</span><span id="mail-c13" style="position: absolute; right: 0; opacity: 0">13</span></span></div>
         <div class="mail-folder"><span>Отправленные</span></div>
         <div class="mail-folder"><span>Черновики</span></div>
         <div class="mail-folder"><span>Спам</span></div>
       </div>
       <div id="mail-paper">
+        <div id="mail-msg">
         <div id="mail-subject">Акт сверки за октябрь</div>
         <div id="mail-from">
           <div id="mail-avatar">Б</div>
@@ -244,6 +356,37 @@
           <p>С уважением, бухгалтерия</p>
           <div id="mail-attach"><span id="mail-pdf" data-layout-ignore>PDF</span>акт_сверки_октябрь.pdf</div>
         </div>
+        </div>
+        <div id="mail-inbox">
+          <div id="ib-title">Входящие</div>
+          <div id="ib-list">
+            <div class="ib-row" id="ib-new" style="top: 0">
+              <i id="ib-dot"></i><div class="ib-av" style="background: #3d5a80">Б</div>
+              <div class="ib-txt"><span class="ib-from">Бухгалтерия ООО «Партнёр»</span><span class="ib-subj">Акт сверки за октябрь</span></div>
+              <span class="ib-time">14:02</span>
+            </div>
+            <div class="ib-row ib-old" style="top: 0">
+              <div class="ib-av" style="background: #6b8f71">J</div>
+              <div class="ib-txt"><span class="ib-from">Jira</span><span class="ib-subj">SUP-1287 назначена на support-agent</span></div>
+              <span class="ib-time">13:48</span>
+            </div>
+            <div class="ib-row ib-old" style="top: 112px">
+              <div class="ib-av" style="background: #a0674b">С</div>
+              <div class="ib-txt"><span class="ib-from">ООО «Север»</span><span class="ib-subj">Не проходит оплата по счёту</span></div>
+              <span class="ib-time">13:31</span>
+            </div>
+            <div class="ib-row ib-old" style="top: 224px">
+              <div class="ib-av" style="background: #7a6a9b">К</div>
+              <div class="ib-txt"><span class="ib-from">Клиентский сервис</span><span class="ib-subj">Сводка обращений за неделю</span></div>
+              <span class="ib-time">12:10</span>
+            </div>
+            <div class="ib-row ib-old" style="top: 336px">
+              <div class="ib-av" style="background: #5f7f99">И</div>
+              <div class="ib-txt"><span class="ib-from">ИП Морозов</span><span class="ib-subj">Вопрос по доставке заказа</span></div>
+              <span class="ib-time">11:54</span>
+            </div>
+          </div>
+        </div>
         <div id="mail-agent">
           <svg viewBox="0 0 48 48" fill="none" stroke="#ee8a74" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="15" width="30" height="24" rx="6" />
@@ -251,14 +394,22 @@
             <circle cx="18" cy="27" r="2.4" fill="#ee8a74" /><circle cx="30" cy="27" r="2.4" fill="#ee8a74" />
             <path d="M5 25v6M43 25v6" />
           </svg>
-          <span>support-agent&nbsp;<span id="mail-agent-a">читает письмо</span><span id="mail-agent-b" style="display: none">выполняет инструкцию</span></span>
+          <span>support-agent&nbsp;<span id="mail-agent-w">разбирает почту</span><span id="mail-agent-o" style="display: none">открывает письмо</span><span id="mail-agent-a" style="display: none">читает письмо</span><span id="mail-agent-b" style="display: none">выполняет инструкцию</span></span>
         </div>
       </div>
     </div>
-    <div id="mail-cap1" class="mail-cap clip" data-start="0" data-duration="4.4">
+    <div id="mail-toast">
+      <div class="ib-av" style="background: #3d5a80">Б</div>
+      <div><div class="t1">Бухгалтерия ООО «Партнёр»</div><div class="t2">Акт сверки за октябрь</div></div>
+      <span class="t0">сейчас</span>
+    </div>
+    <div id="mail-cap0" class="mail-cap clip" data-start="0" data-duration="3.6">
+      <span class="w">14:02</span><span class="w">—</span><span class="w">приходит</span><span class="w">новое</span><span class="w">письмо</span>
+    </div>
+    <div id="mail-cap1" class="mail-cap clip" data-start="4" data-duration="4.4">
       <span class="w">Агент</span><span class="w">поддержки</span><span class="w">читает</span><span class="w">письмо</span>
     </div>
-    <div id="mail-cap2" class="mail-cap clip" data-start="4.8" data-duration="4.8">
+    <div id="mail-cap2" class="mail-cap clip" data-start="8.8" data-duration="4.8">
       <span class="w">А</span><span class="w">в</span><span class="w">нём</span><span class="w acc">спрятана</span><span class="w">инструкция</span>
     </div>
     <div id="mail-flood"></div>
@@ -267,40 +418,68 @@
     (function () {
       const tl = gsap.timeline({ paused: true });
 
+      const OFF = 4; // начало чтения письма
+      // приход письма: уведомление, строка падает в список, счётчик 12 → 13
+      tl.fromTo("#mail-toast", { x: 720 }, { x: 0, duration: 0.55, ease: "expo.out" }, 0.9);
+      tl.to("#mail-toast", { x: 720, duration: 0.35, ease: "power3.in" }, 1.95);
+      tl.fromTo("#ib-new", { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 1.25);
+      tl.fromTo(".ib-old", { y: 0 }, { y: 112, duration: 0.5, ease: "expo.out" }, 1.2);
+      tl.fromTo("#ib-new", { backgroundColor: "rgba(61,90,128,0.16)" }, { backgroundColor: "rgba(61,90,128,0.06)", duration: 1.2, ease: "power2.out" }, 1.25);
+      tl.to("#mail-c12", { opacity: 0, y: -16, duration: 0.2 }, 1.3);
+      tl.fromTo("#mail-c13", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.25, ease: "expo.out" }, 1.35);
+      tl.fromTo("#mail-cap0 .w", { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, 1.0);
+      tl.to("#mail-cap0 .w", { opacity: 0, filter: "blur(8px)", duration: 0.16, stagger: 0.03, ease: "power2.in" }, 3.3);
+      // агент берёт письмо в работу и открывает его
+      tl.set("#mail-agent-w", { display: "none" }, 2.3);
+      tl.set("#mail-agent-o", { display: "inline" }, 2.3);
+      tl.fromTo("#mail-agent", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 2.3);
+      tl.to("#ib-new", { backgroundColor: "rgba(61,90,128,0.22)", duration: 0.1 }, 2.8);
+      tl.to("#ib-dot", { scale: 0, duration: 0.2 }, 2.85);
+      // строка раскрывается в открытое письмо
+      tl.set("#mail-msg", { opacity: 1 }, 2.95);
+      tl.to("#mail-msg", { clipPath: "inset(0px 0px 0px 0px)", duration: 0.6, ease: "power3.inOut" }, 2.95);
+      tl.fromTo("#mail-msg", { backgroundColor: "#dfe5ee" }, { backgroundColor: "#ffffff", duration: 0.5, ease: "power2.in", immediateRender: false }, 3.15);
+      tl.to("#mail-inbox", { opacity: 0, duration: 0.25 }, 3.4);
+      tl.fromTo("#mail-msg > *", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false }, 3.5);
+      tl.set("#mail-msg > *", { opacity: 0 }, 0);
+      tl.set("#mail-agent-o", { display: "none" }, OFF);
+      tl.set("#mail-agent-a", { display: "inline" }, OFF);
+
       // подпись 1 — пословно через размытие; кадр 0 уже читается
       tl.fromTo("#mail-cap1 .w", { opacity: 0.25, filter: "blur(6px)" },
-        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, 0.2);
-      tl.to("#mail-cap1 .w", { opacity: 0, filter: "blur(8px)", duration: 0.18, stagger: 0.04, ease: "power2.in" }, 4.05);
+        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, OFF + 0.2);
+      tl.to("#mail-cap1 .w", { opacity: 0, filter: "blur(8px)", duration: 0.18, stagger: 0.04, ease: "power2.in" }, OFF + 4.05);
 
       // агент читает: подсветка шагает по строкам тела письма
       const lineY = [0, 80, 138, 218];
-      tl.fromTo("#mail-read", { opacity: 0, y: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.8);
+      tl.fromTo("#mail-read", { opacity: 0, y: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, OFF + 0.8);
       lineY.forEach((y, i) => {
         if (i === 0) return;
-        tl.to("#mail-read", { y: y, duration: 0.35, ease: "power3.inOut" }, 0.8 + i * 0.75);
+        tl.to("#mail-read", { y: y, duration: 0.35, ease: "power3.inOut" }, OFF + 0.8 + i * 0.75);
       });
       // на скрытой строке подсветка становится красной и растягивается на два ряда
-      tl.to("#mail-read", { height: 116, background: "rgba(175,21,21,0.06)", borderLeftColor: "#af1515", duration: 0.3, ease: "power2.out" }, 4.3);
-      tl.to("#mail-read", { opacity: 0, duration: 0.3 }, 5.0);
+      tl.to("#mail-read", { height: 116, background: "rgba(175,21,21,0.06)", borderLeftColor: "#af1515", duration: 0.3, ease: "power2.out" }, OFF + 4.3);
+      tl.to("#mail-read", { opacity: 0, duration: 0.3 }, OFF + 5.0);
 
       // скрытая строка проявляется
       tl.fromTo("#mail-hidden-hatch", { clipPath: "inset(0 100% 0 0)" },
-        { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power3.out" }, 4.6);
-      tl.fromTo("#mail-hidden-text", { color: "#ffffff" }, { color: "#af1515", duration: 0.5, ease: "power2.out" }, 4.65);
+        { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power3.out" }, OFF + 4.6);
+      tl.fromTo("#mail-hidden-text", { color: "#ffffff" }, { color: "#af1515", duration: 0.5, ease: "power2.out" }, OFF + 4.65);
 
       // подпись 2
       tl.fromTo("#mail-cap2 .w", { opacity: 0, filter: "blur(8px)" },
-        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, 4.85);
+        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, OFF + 4.85);
 
       // статус агента меняется: он начинает выполнять
-      tl.set("#mail-agent-a", { display: "none" }, 7.4);
-      tl.set("#mail-agent-b", { display: "inline" }, 7.4);
-      tl.fromTo("#mail-agent", { scale: 1 }, { scale: 1.06, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out" }, 7.4);
+      tl.set("#mail-agent-a", { display: "none" }, OFF + 7.4);
+      tl.set("#mail-agent-b", { display: "inline" }, OFF + 7.4);
+      tl.fromTo("#mail-agent", { scale: 1 }, { scale: 1.06, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out" }, OFF + 7.4);
 
       // уход: зум сквозь скрытую строку в тёмный мир
-      tl.to("#mail-cap2 .w", { opacity: 0, filter: "blur(8px)", duration: 0.16, stagger: 0.03, ease: "power2.in" }, 9.35);
-      tl.to("#mail-cam", { scale: 5, transformOrigin: "47% 55%", filter: "blur(10px)", duration: 0.75, ease: "power3.in" }, 9.7);
-      tl.fromTo("#mail-flood", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.in" }, 10.1);
+      tl.to("#mail-cap2 .w", { opacity: 0, filter: "blur(8px)", duration: 0.16, stagger: 0.03, ease: "power2.in" }, OFF + 9.35);
+      tl.to("#mail-cam", { scale: 5, transformOrigin: "47% 55%", filter: "blur(10px)", duration: 0.75, ease: "power3.in" }, OFF + 9.7);
+      tl.fromTo("#mail-flood", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.in" }, OFF + 10.1);
 
       window.__timelines["mail"] = tl;
     })();
