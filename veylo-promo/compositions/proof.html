@@ -1,0 +1,223 @@
+<template>
+  <style>
+    @font-face { font-family: "Beer Money"; src: url("assets/fonts/beermoney.ttf") format("truetype"); }
+    @font-face { font-family: "Gunny Rewritten"; src: url("assets/fonts/gunny.ttf") format("truetype"); }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #f4eee8;
+      font-family: "Veylo Mono", monospace;
+    }
+    #pf-dark {
+      position: absolute;
+      inset: 0;
+      background: #140809;
+    }
+    .blk {
+      position: absolute;
+      top: 300px;
+      width: 250px;
+      height: 160px;
+      border-radius: 20px;
+      background: rgba(30, 10, 12, 0.95);
+      border: 2px solid rgba(238, 138, 116, 0.35);
+      padding: 22px 24px;
+      font-size: 26px;
+      line-height: 1.5;
+    }
+    .blk .h {
+      color: #b89c98;
+      font-size: 26px;
+    }
+    .blk .v {
+      font-weight: 700;
+      font-size: 30px;
+      letter-spacing: 0.06em;
+    }
+    #pf-b5 {
+      border-color: #d8322b;
+    }
+    #pf-b5 .v {
+      color: #d8322b;
+    }
+    #pf-inc {
+      position: absolute;
+      left: 120px;
+      top: 700px;
+      width: 1000px;
+      height: 200px;
+      border-radius: 24px;
+      background: #140809;
+      padding: 34px 40px;
+      font-size: 32px;
+      line-height: 1.6;
+    }
+    #pf-inc .k {
+      display: inline-block;
+      padding: 2px 16px;
+      border-radius: 18px;
+      border: 2px solid #d8322b;
+      color: #d8322b;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 0.08em;
+      margin-right: 16px;
+      vertical-align: 4px;
+    }
+    #pf-links {
+      position: absolute;
+      inset: 0;
+    }
+    #pf-replay {
+      position: absolute;
+      left: 1625px;
+      top: 200px;
+      width: 80px;
+      height: 80px;
+    }
+    #pf-match {
+      position: absolute;
+      left: 1560px;
+      top: 478px;
+      width: 340px;
+      font-size: 30px;
+      color: #ee8a74;
+    }
+    .pf-big {
+      position: absolute;
+      font-family: "Beer Money", cursive;
+      font-size: 200px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .pf-big .l {
+      display: inline-block;
+    }
+    .pf-cap {
+      position: absolute;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 60px;
+      white-space: nowrap;
+    }
+    .pf-cap .w {
+      display: inline-block;
+      margin-right: 0.26em;
+    }
+    #pf-world {
+      position: absolute;
+      inset: 0;
+    }
+    #pf-contour-label {
+      position: absolute;
+      left: 600px;
+      top: 196px;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 44px;
+      color: #ee8a74;
+    }
+  </style>
+  <div id="root" data-composition-id="proof" data-width="1920" data-height="1080">
+    <div id="pf-dark"></div>
+
+    <svg id="pf-links" viewBox="0 0 1920 1080" fill="none" stroke="#ee8a74" stroke-width="4">
+      <path class="lk" d="M375 380 H 445" /><path class="lk" d="M695 380 H 765" /><path class="lk" d="M1015 380 H 1085" /><path class="lk" d="M1335 380 H 1405" />
+    </svg>
+    <div class="blk" id="pf-b1" style="left: 125px"><div class="h">#3e1a·9c04</div><div class="v">ALLOW</div><div class="h">jira.search</div></div>
+    <div class="blk" id="pf-b2" style="left: 445px"><div class="h">#9c04·71bd</div><div class="v">ALLOW</div><div class="h">mail.read</div></div>
+    <div class="blk" id="pf-b3" style="left: 765px"><div class="h">#71bd·e2a8</div><div class="v" style="color: #ee8a74">ESCALATE</div><div class="h">mail.send</div></div>
+    <div class="blk" id="pf-b4" style="left: 1085px"><div class="h">#e2a8·5f13</div><div class="v" style="color: #d8322b">DENY</div><div class="h">db.query</div></div>
+    <div class="blk" id="pf-b5" style="left: 1405px"><div class="h">#5f13·c7d2</div><div class="v">DECOY</div><div class="h">INC-0042</div></div>
+    <svg id="pf-replay" viewBox="0 0 48 48" fill="none" stroke="#ee8a74" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M38 24a14 14 0 1 1-4.1-9.9" /><path d="M36 6v9h-9" />
+    </svg>
+    <div id="pf-match">повтор: тот же результат</div>
+
+    <!-- карточка инцидента из прошлой сцены сжимается в блок цепочки -->
+    <div id="pf-inc" data-layout-ignore>
+      <div><span class="k">DECOY</span>canary-токен использован</div>
+      <div>INC-0042 · сессия analyst-agent заблокирована</div>
+    </div>
+
+    <div id="pf-t1" class="pf-big clip" data-start="1" data-duration="3.6" style="left: 125px; top: 560px">
+      <span class="l">Д</span><span class="l">О</span><span class="l">К</span><span class="l">А</span><span class="l">З</span><span class="l">У</span><span class="l">Е</span><span class="l">М</span><span class="l">О</span>
+    </div>
+    <div id="pf-c1" class="pf-cap clip" data-start="1.6" data-duration="3" style="left: 132px; top: 800px">
+      <span class="w">Каждое</span><span class="w">решение</span><span class="w">переигрывается</span><span class="w">бит</span><span class="w">в</span><span class="w">бит</span>
+    </div>
+
+    <!-- автономность: сервер в контуре заказчика, связь с Интернетом обрезана -->
+    <svg id="pf-world" viewBox="0 0 1920 1080" fill="none">
+      <rect id="pf-contour" x="560" y="180" width="800" height="460" rx="28" stroke="#ee8a74" stroke-width="4" stroke-dasharray="18 14" />
+      <g id="pf-server" stroke="#f4eee8" stroke-width="5" stroke-linejoin="round">
+        <rect x="860" y="300" width="200" height="66" rx="12" /><rect x="860" y="378" width="200" height="66" rx="12" /><rect x="860" y="456" width="200" height="66" rx="12" />
+        <circle cx="900" cy="333" r="7" fill="#d8322b" stroke="none" /><circle cx="900" cy="411" r="7" fill="#d8322b" stroke="none" /><circle cx="900" cy="489" r="7" fill="#d8322b" stroke="none" />
+      </g>
+      <path id="pf-wire" d="M1360 410 H 1560" stroke="#8f7774" stroke-width="4" />
+      <g id="pf-globe" stroke="#8f7774" stroke-width="4"><circle cx="1650" cy="410" r="70" /><path d="M1580 410h140M1650 340c28 28 28 112 0 140M1650 340c-28 28-28 112 0 140" /></g>
+      <g id="pf-cut" stroke="#d8322b" stroke-width="7" stroke-linecap="round"><path d="M1430 380 l40 60M1470 380 l-40 60" /></g>
+    </svg>
+    <div id="pf-contour-label">контур заказчика</div>
+    <div id="pf-t2" class="pf-big clip" data-start="5.2" data-duration="3.8" style="left: 0; width: 1920px; text-align: center; top: 690px">
+      <span class="l">А</span><span class="l">В</span><span class="l">Т</span><span class="l">О</span><span class="l">Н</span><span class="l">О</span><span class="l">М</span><span class="l">Н</span><span class="l">О</span>
+    </div>
+    <div id="pf-c2" class="pf-cap clip" data-start="5.8" data-duration="3.2" style="left: 0; width: 1920px; text-align: center; top: 905px">
+      <span class="w">работает</span><span class="w">без</span><span class="w">доступа</span><span class="w">в</span><span class="w">Интернет</span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#pf-dark", { opacity: 1 }, { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 0.1);
+      // карточка инцидента улетает на место пятого блока
+      tl.fromTo("#pf-inc", { x: 0, y: 0, scaleX: 1, scaleY: 1, opacity: 1, transformOrigin: "0 0" },
+        { x: 1405 - 120, y: 300 - 700, scaleX: 250 / 1000, scaleY: 160 / 200, duration: 0.6, ease: "power3.inOut" }, 0);
+      tl.to("#pf-inc", { opacity: 0, duration: 0.15 }, 0.5);
+      tl.fromTo("#pf-b5", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 0.5);
+      tl.fromTo(["#pf-b4", "#pf-b3", "#pf-b2", "#pf-b1"], { opacity: 0, x: 60 },
+        { opacity: 1, x: 0, duration: 0.5, stagger: 0.08, ease: "expo.out" }, 0.45);
+      const links = gsap.utils.toArray("#pf-links .lk");
+      links.forEach((p) => gsap.set(p, { strokeDasharray: 70, strokeDashoffset: 70 }));
+      tl.to(links, { strokeDashoffset: 0, duration: 0.25, stagger: 0.4, ease: "power2.out" }, 1.1);
+
+      tl.fromTo("#pf-t1 .l", { opacity: 0.2, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.06 }, 1.05);
+      tl.fromTo("#pf-c1 .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07 }, 1.65);
+
+      // повтор решения даёт тот же результат
+      tl.fromTo("#pf-replay", { opacity: 0, rotation: 0 }, { opacity: 1, duration: 0.2 }, 2.5);
+      tl.to("#pf-replay", { rotation: 360, duration: 0.8, ease: "power2.inOut" }, 2.6);
+      tl.fromTo("#pf-b5", { backgroundColor: "rgba(30,10,12,0.95)" }, { backgroundColor: "rgba(175,21,21,0.35)", duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, 3.35);
+      tl.fromTo("#pf-match", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 3.45);
+
+      // уход в автономность: цепочка сжимается в сервер
+      tl.to(["#pf-t1 .l", "#pf-c1 .w"], { opacity: 0, filter: "blur(8px)", duration: 0.16, stagger: 0.01 }, 4.25);
+      tl.to(".blk", { x: (i, el) => 960 - (el.offsetLeft + 125), y: 30, opacity: 0, scale: 0.4, duration: 0.4, ease: "power3.in" }, 4.3);
+      tl.to(["#pf-links", "#pf-replay", "#pf-match"], { opacity: 0, duration: 0.2 }, 4.3);
+      tl.fromTo("#pf-server", { opacity: 0, scale: 0.6, svgOrigin: "960 411" }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 4.55);
+      const contour = document.getElementById("pf-contour");
+      tl.fromTo(contour, { opacity: 0, scale: 0.85, svgOrigin: "960 410" }, { opacity: 1, scale: 1, duration: 0.6, ease: "expo.out" }, 4.75);
+      tl.fromTo("#pf-contour-label", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 5.0);
+      tl.fromTo(["#pf-wire", "#pf-globe"], { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.0);
+      tl.fromTo("#pf-cut", { opacity: 0, scale: 1.6, svgOrigin: "1450 410" }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 5.5);
+      tl.to("#pf-wire", { attr: { d: "M1360 410 H 1420" }, duration: 0.3, ease: "power2.out" }, 5.55);
+
+      tl.fromTo("#pf-t2 .l", { opacity: 0.2, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.06 }, 5.25);
+      tl.fromTo("#pf-c2 .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07 }, 5.85);
+
+      // уход: контур схлопывается в линию — будущую шкалу времени
+      tl.to(["#pf-t2 .l", "#pf-c2 .w"], { opacity: 0, filter: "blur(8px)", duration: 0.16, stagger: 0.01 }, 8.3);
+      tl.to(["#pf-server", "#pf-globe", "#pf-wire", "#pf-cut", "#pf-contour-label"], { opacity: 0, duration: 0.25 }, 8.35);
+      tl.to(contour, { attr: { y: 409, height: 2 }, duration: 0.45, ease: "power3.inOut" }, 8.45);
+
+      window.__timelines["proof"] = tl;
+    })();
+  </script>
+</template>

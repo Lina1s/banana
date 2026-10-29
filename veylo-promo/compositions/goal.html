@@ -1,0 +1,194 @@
+<template>
+  <style>
+    @font-face { font-family: "Beer Money"; src: url("assets/fonts/beermoney.ttf") format("truetype"); }
+    @font-face { font-family: "Gunny Rewritten"; src: url("assets/fonts/gunny.ttf") format("truetype"); }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #f4eee8;
+      font-family: "Veylo Mono", monospace;
+    }
+    #gl-ruler {
+      position: absolute;
+      inset: 0;
+    }
+    .gl-m {
+      position: absolute;
+      top: 432px;
+      font-size: 30px;
+      color: #c9b3ae;
+    }
+    .gl-y {
+      position: absolute;
+      top: 326px;
+      font-size: 28px;
+      color: #8f7774;
+    }
+    #gl-now {
+      position: absolute;
+      left: 352px;
+      top: 330px;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 36px;
+      color: #ee8a74;
+    }
+    #gl-diamond {
+      position: absolute;
+      left: 352px;
+      top: 390px;
+      width: 40px;
+      height: 40px;
+      background: #f4eee8;
+    }
+    #gl-defense {
+      position: absolute;
+      left: 1578px;
+      top: 396px;
+      width: 83px;
+      height: 28px;
+      background: #d8322b;
+      border-radius: 4px;
+      transform-origin: 0 50%;
+    }
+    #gl-def-label {
+      position: absolute;
+      left: 1240px;
+      top: 470px;
+      width: 520px;
+      text-align: right;
+      font-size: 30px;
+      font-weight: 700;
+      color: #ee8a74;
+    }
+    #gl-goal-h {
+      position: absolute;
+      left: 160px;
+      top: 100px;
+      font-family: "Beer Money", cursive;
+      font-size: 170px;
+      line-height: 1;
+    }
+    #gl-goal {
+      position: absolute;
+      left: 600px;
+      top: 118px;
+      width: 1160px;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 58px;
+      line-height: 1.2;
+    }
+    #gl-goal .w {
+      display: inline-block;
+      margin-right: 0.26em;
+    }
+    #gl-res-h {
+      position: absolute;
+      left: 160px;
+      top: 560px;
+      font-family: "Beer Money", cursive;
+      font-size: 150px;
+      line-height: 1;
+    }
+    .gl-item {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 54px;
+      white-space: nowrap;
+    }
+    .gl-item svg {
+      width: 56px;
+      height: 56px;
+      flex: none;
+    }
+  </style>
+  <div id="root" data-composition-id="goal" data-width="1920" data-height="1080">
+    <svg id="gl-ruler" viewBox="0 0 1920 1080" fill="none">
+      <line id="gl-line" x1="560" y1="410" x2="1360" y2="410" stroke="#ee8a74" stroke-width="3" />
+      <g id="gl-ticks" stroke="#8f7774" stroke-width="2">
+        <line x1="160" y1="398" x2="160" y2="422" /><line x1="395" y1="398" x2="395" y2="422" /><line x1="623" y1="398" x2="623" y2="422" />
+        <line x1="858" y1="398" x2="858" y2="422" /><line x1="1093" y1="398" x2="1093" y2="422" /><line x1="1305" y1="398" x2="1305" y2="422" />
+        <line x1="1540" y1="398" x2="1540" y2="422" />
+      </g>
+      <line id="gl-trail" x1="372" y1="410" x2="372" y2="410" stroke="#d8322b" stroke-width="7" />
+    </svg>
+    <span class="gl-y" style="left: 160px">2026</span><span class="gl-y" style="left: 858px">2027</span>
+    <span class="gl-m" style="left: 160px">ОКТ</span><span class="gl-m" style="left: 395px">НОЯ</span><span class="gl-m" style="left: 623px">ДЕК</span>
+    <span class="gl-m" style="left: 858px">ЯНВ</span><span class="gl-m" style="left: 1093px">ФЕВ</span><span class="gl-m" style="left: 1305px">МАР</span>
+    <span class="gl-m" style="left: 1540px">АПР</span>
+    <div id="gl-defense"></div>
+    <div id="gl-now">сейчас</div>
+    <div id="gl-def-label">ЗАЩИТА 06–17.04.2027</div>
+    <div id="gl-diamond"></div>
+
+    <div id="gl-goal-h" class="clip" data-start="0.3" data-duration="8.2">ЦЕЛЬ</div>
+    <div id="gl-goal" class="clip" data-start="0.6" data-duration="7.9">
+      <span class="w">MVP</span><span class="w">шлюза</span><span class="w">контроля</span><span class="w">ИИ-агентов</span><span class="w">с</span><span class="w">приманками</span><span class="w">и</span><span class="w">воспроизводимым</span><span class="w">аудитом</span>
+    </div>
+
+    <div id="gl-res-h" class="clip" data-start="3.9" data-duration="4.6">РЕЗУЛЬТАТ</div>
+    <div class="gl-item" id="gl-i1" style="left: 160px; top: 740px">
+      <svg viewBox="0 0 56 56" fill="none"><rect x="3" y="3" width="50" height="50" rx="10" stroke="#ee8a74" stroke-width="3" /><path class="tick" d="M15 29l9 9 17-20" stroke="#d8322b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>работающий MVP</span>
+    </div>
+    <div class="gl-item" id="gl-i2" style="left: 160px; top: 840px">
+      <svg viewBox="0 0 56 56" fill="none"><rect x="3" y="3" width="50" height="50" rx="10" stroke="#ee8a74" stroke-width="3" /><path class="tick" d="M15 29l9 9 17-20" stroke="#d8322b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>демонстрационный стенд</span>
+    </div>
+    <div class="gl-item" id="gl-i3" style="left: 980px; top: 740px">
+      <svg viewBox="0 0 56 56" fill="none"><rect x="3" y="3" width="50" height="50" rx="10" stroke="#ee8a74" stroke-width="3" /><path class="tick" d="M15 29l9 9 17-20" stroke="#d8322b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>не менее 15 сценариев атак</span>
+    </div>
+    <div class="gl-item" id="gl-i4" style="left: 980px; top: 840px">
+      <svg viewBox="0 0 56 56" fill="none"><rect x="3" y="3" width="50" height="50" rx="10" stroke="#ee8a74" stroke-width="3" /><path class="tick" d="M15 29l9 9 17-20" stroke="#d8322b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      <span>документация и протокол испытаний</span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#gl-diamond", { rotation: 45 }, { rotation: 45, duration: 0.01 }, 0);
+      // линия контура вытягивается в шкалу времени
+      tl.fromTo("#gl-line", { attr: { x1: 560, x2: 1360 } }, { attr: { x1: 160, x2: 1760 }, duration: 0.6, ease: "power3.inOut" }, 0);
+      tl.fromTo("#gl-ticks line", { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.04 }, 0.4);
+      tl.fromTo([".gl-m", ".gl-y"], { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.03, ease: "expo.out" }, 0.45);
+      tl.fromTo("#gl-defense", { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "expo.out" }, 0.9);
+      tl.fromTo(["#gl-diamond", "#gl-now"], { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.9);
+
+      tl.fromTo("#gl-goal-h", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 0.32);
+      tl.fromTo("#gl-goal .w", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07 }, 0.65);
+
+      // маркер «сейчас» идёт к защите
+      tl.to("#gl-diamond", { x: 1620 - 372, duration: 1.4, ease: "power2.inOut" }, 1.6);
+      tl.to("#gl-trail", { attr: { x2: 1620 }, duration: 1.4, ease: "power2.inOut" }, 1.6);
+      tl.to("#gl-now", { opacity: 0, duration: 0.2 }, 1.6);
+      tl.fromTo("#gl-def-label", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 2.95);
+
+      tl.fromTo("#gl-res-h", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 3.92);
+      const items = ["#gl-i1", "#gl-i2", "#gl-i3", "#gl-i4"];
+      items.forEach((id, i) => {
+        const t = 4.5 + i * 0.8;
+        tl.fromTo(id, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, t - 0.25);
+        tl.fromTo(id + " .tick", { strokeDasharray: 40, strokeDashoffset: 40 }, { strokeDashoffset: 0, duration: 0.2, ease: "power2.out" }, t);
+      });
+
+      // уход: остаётся только ромб защиты — он станет зрачком
+      tl.to(["#gl-goal-h", "#gl-goal", "#gl-res-h", ".gl-item", ".gl-m", ".gl-y", "#gl-ruler", "#gl-defense", "#gl-def-label"],
+        { opacity: 0, filter: "blur(8px)", duration: 0.25 }, 8.3);
+      tl.to("#gl-diamond", { x: 960 - 372, y: 430 - 410, duration: 0.6, ease: "power3.inOut" }, 8.4);
+
+      window.__timelines["goal"] = tl;
+    })();
+  </script>
+</template>

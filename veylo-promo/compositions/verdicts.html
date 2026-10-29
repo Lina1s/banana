@@ -1,0 +1,320 @@
+<template>
+  <style>
+    @font-face { font-family: "Beer Money"; src: url("assets/fonts/beermoney.ttf") format("truetype"); }
+    @font-face { font-family: "Gunny Rewritten"; src: url("assets/fonts/gunny.ttf") format("truetype"); }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #f4eee8;
+      font-family: "Veylo Mono", monospace;
+    }
+    #vd-cam {
+      position: absolute;
+      inset: 0;
+    }
+    #vd-console {
+      position: absolute;
+      left: 660px;
+      top: 150px;
+      width: 1180px;
+      height: 780px;
+      border-radius: 28px;
+      background: rgba(30, 10, 12, 0.94);
+      border: 3px solid #d8322b;
+      overflow: hidden;
+    }
+    #vd-inner {
+      position: absolute;
+      inset: 0;
+    }
+    #vd-head {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 84px;
+      border-bottom: 1px solid rgba(238, 138, 116, 0.2);
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
+      gap: 14px;
+      font-size: 28px;
+      color: #c9b3ae;
+    }
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #d8322b;
+    }
+    #vd-mode {
+      margin-left: auto;
+      position: relative;
+      display: flex;
+      height: 52px;
+      border-radius: 26px;
+      border: 2px solid rgba(238, 138, 116, 0.45);
+      font-size: 24px;
+      font-weight: 700;
+    }
+    #vd-mode span {
+      position: relative;
+      z-index: 1;
+      width: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #vd-mode-knob {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 150px;
+      height: 48px;
+      border-radius: 24px;
+      background: #4a3836;
+    }
+    #vd-cols {
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      top: 104px;
+      display: grid;
+      grid-template-columns: 180px 250px 1fr 260px;
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      color: #8f7774;
+    }
+    .row {
+      opacity: 0;
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      height: 82px;
+      display: grid;
+      grid-template-columns: 180px 250px 1fr 260px;
+      align-items: center;
+      font-size: 32px;
+      line-height: 1.2;
+      border-radius: 10px;
+    }
+    .row .tm {
+      color: #8f7774;
+    }
+    .row .ag {
+      color: #c9b3ae;
+      font-size: 28px;
+      text-align: right;
+      padding-right: 14px;
+    }
+    .chip {
+      justify-self: start;
+      padding: 6px 18px;
+      border-radius: 22px;
+      border: 2px solid #c9b3ae;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .chip.esc {
+      border-color: #ee8a74;
+      color: #ee8a74;
+    }
+    .chip.deny {
+      border-color: #d8322b;
+      color: #d8322b;
+    }
+    .chip.wait {
+      border-color: #8f7774;
+      color: #8f7774;
+    }
+    .note {
+      color: #ee8a74;
+      font-size: 28px;
+      margin-left: 14px;
+    }
+    #vd-popup {
+      position: absolute;
+      left: 820px;
+      top: 530px;
+      width: 880px;
+      height: 330px;
+      border-radius: 24px;
+      background: #f4eee8;
+      color: #1d1a1a;
+      padding: 36px 44px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+    }
+    #vd-popup h4 {
+      font-family: "Veylo Sans", sans-serif;
+      font-size: 36px;
+      font-weight: 600;
+    }
+    #vd-popup p {
+      font-family: "Veylo Sans", sans-serif;
+      font-size: 30px;
+      line-height: 1.4;
+      margin-top: 16px;
+      color: #2f2a27;
+    }
+    .btn {
+      position: absolute;
+      bottom: 36px;
+      height: 70px;
+      width: 260px;
+      border-radius: 14px;
+      font-family: "Veylo Sans", sans-serif;
+      font-size: 30px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #vd-reject {
+      left: 44px;
+      background: #af1515;
+      color: #fff;
+    }
+    #vd-allow {
+      left: 324px;
+      border: 2px solid #8a837b;
+      color: #2f2a27;
+    }
+    #vd-cursor {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 62px;
+      height: 62px;
+      z-index: 20;
+    }
+    .vd-word {
+      position: absolute;
+      left: 100px;
+      top: 330px;
+      font-weight: 700;
+      font-size: 100px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .vd-why {
+      position: absolute;
+      left: 104px;
+      top: 470px;
+      width: 560px;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 56px;
+      line-height: 1.2;
+    }
+    #vd-mock {
+      position: absolute;
+      left: 660px;
+      top: 950px;
+      width: 1180px;
+      text-align: right;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 34px;
+      color: #8f7774;
+    }
+  </style>
+  <div id="root" data-composition-id="verdicts" data-width="1920" data-height="1080">
+    <div id="vd-cam">
+      <div id="vd-console">
+        <div id="vd-inner">
+          <div id="vd-head">
+            <i class="dot"></i><i class="dot" style="background: #ee8a74"></i><i class="dot" style="background: #f4eee8"></i>
+            <span style="margin-left: 18px">veylo · журнал решений</span>
+            <div id="vd-mode"><i id="vd-mode-knob"></i><span id="vd-m1">DRY-RUN</span><span id="vd-m2">ENFORCE</span></div>
+          </div>
+          <div id="vd-cols" data-layout-ignore><span>ВРЕМЯ</span><span>РЕШЕНИЕ</span><span>ДЕЙСТВИЕ</span><span style="text-align: right; padding-right: 14px">АГЕНТ</span></div>
+          <div class="row" id="vd-r1" style="top: 150px"><span class="tm">14:02:11</span><span class="chip">ALLOW</span><span>jira.search</span><span class="ag">support-agent</span></div>
+          <div class="row" id="vd-r2" style="top: 246px"><span class="tm">14:02:12</span><span class="chip">ALLOW</span><span>mail.read</span><span class="ag">support-agent</span></div>
+          <div class="row" id="vd-r3" style="top: 342px"><span class="tm">14:02:14</span><span class="chip esc">ESCALATE</span><span>mail.send · внешний адрес<span class="note" id="vd-r3n">отклонено</span></span><span class="ag">support-agent</span></div>
+          <div class="row" id="vd-r4" style="top: 438px"><span class="tm">14:02:19</span><span class="chip deny">DENY</span><span>db.query · DROP TABLE</span><span class="ag">analyst-agent</span></div>
+          <div class="row" id="vd-r5" style="top: 534px"><span class="tm">14:02:23</span><span class="chip">ALLOW</span><span>crm.get_client</span><span class="ag">sales-agent</span></div>
+          <div class="row" id="vd-r6" style="top: 630px"><span class="tm">14:02:27</span><span class="chip wait">· · ·</span><span>payments.charge · ключ из файла</span><span class="ag">analyst-agent</span></div>
+        </div>
+      </div>
+      <div id="vd-mock">макет интерфейса консоли</div>
+
+      <div id="vd-w1" class="vd-word clip" data-start="0.5" data-duration="2.9">ALLOW</div>
+      <div id="vd-y1" class="vd-why clip" data-start="0.5" data-duration="2.9">разрешено политикой</div>
+      <div id="vd-w2" class="vd-word clip" data-start="3.5" data-duration="4.4" style="color: #ee8a74">ESCALATE</div>
+      <div id="vd-y2" class="vd-why clip" data-start="3.5" data-duration="4.4">решает человек</div>
+      <div id="vd-w3" class="vd-word clip" data-start="8" data-duration="2.9" style="color: #d8322b">DENY</div>
+      <div id="vd-y3" class="vd-why clip" data-start="8" data-duration="2.9">запрещено политикой</div>
+      <div id="vd-w4" class="vd-word clip" data-start="11" data-duration="1.2" style="color: #c9b3ae">DRY-RUN</div>
+      <div id="vd-y4" class="vd-why clip" data-start="11" data-duration="1.2">сначала решения только записываются</div>
+      <div id="vd-w5" class="vd-word clip" data-start="12.2" data-duration="2.4" style="color: #d8322b">ENFORCE</div>
+      <div id="vd-y5" class="vd-why clip" data-start="12.2" data-duration="2.4">потом — блокировка</div>
+
+      <div id="vd-popup" class="clip" data-start="4.4" data-duration="2.7">
+        <h4>Нужно подтверждение</h4>
+        <p>support-agent хочет отправить письмо<br />на report@partner-docs.example</p>
+        <div class="btn" id="vd-reject">Отклонить</div>
+        <div class="btn" id="vd-allow">Разрешить</div>
+      </div>
+    </div>
+    <svg id="vd-cursor" viewBox="0 0 32 32"><path d="M5 3l20 12-9 2-4 9z" fill="#f4eee8" stroke="#1d1a1a" stroke-width="1.6" stroke-linejoin="round" /></svg>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // корпус шлюза становится консолью
+      tl.fromTo("#vd-console", { scaleX: 640 / 1180, scaleY: 680 / 780, x: -290, y: -30 },
+        { scaleX: 1, scaleY: 1, x: 0, y: 0, duration: 0.6, ease: "power3.inOut" }, 0);
+      tl.fromTo("#vd-console", { borderColor: "#d8322b" }, { borderColor: "rgba(238,138,116,0.3)", duration: 0.6 }, 0.3);
+      tl.fromTo(["#vd-head", "#vd-cols", "#vd-mock"], { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.08 }, 0.35);
+      tl.fromTo(".row", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+
+      // строки появляются одна за другой
+      const rowAt = { 1: 0.55, 2: 2.05, 3: 3.55, 4: 8.05, 5: 10.05, 6: 13.6 };
+      Object.entries(rowAt).forEach(([n, t]) => {
+        tl.fromTo("#vd-r" + n, { opacity: 0, x: -24, filter: "blur(6px)" },
+          { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.3, ease: "expo.out", immediateRender: false }, t);
+        tl.fromTo("#vd-r" + n, { backgroundColor: "rgba(238,138,116,0.18)" },
+          { backgroundColor: "rgba(238,138,116,0)", duration: 1.0, ease: "power2.out", immediateRender: false }, t);
+      });
+      tl.fromTo("#vd-r3n", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+      tl.to("#vd-r3n", { opacity: 1, duration: 0.2 }, 6.75);
+
+      // слово вердикта слева — blur-swap на одной сцене
+      const words = [[1, 0.5, 3.4], [2, 3.5, 7.9], [3, 8, 10.9], [4, 11, 12.2], [5, 12.2, 14.6]];
+      words.forEach(([n, a, b]) => {
+        tl.fromTo("#vd-w" + n, { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, a + 0.02);
+        tl.fromTo("#vd-y" + n, { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, a + 0.12);
+        tl.to(["#vd-w" + n, "#vd-y" + n], { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, b - 0.17);
+      });
+
+      // эскалация: карточка подтверждения, курсор жмёт «Отклонить»
+      tl.fromTo("#vd-popup", { scale: 0.92, opacity: 0, y: 20 }, { scale: 1, opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 4.45);
+      tl.fromTo("#vd-cursor", { x: 1960, y: 1120 }, { x: 1960, y: 1120, duration: 0.01 }, 0);
+      tl.to("#vd-cursor", { x: 990, y: 800, duration: 1.3, ease: "power3.inOut" }, 5.2);
+      tl.to("#vd-cursor", { scale: 0.85, duration: 0.08, yoyo: true, repeat: 1 }, 6.55);
+      tl.to("#vd-reject", { scale: 0.95, background: "#7d0f0f", duration: 0.08, yoyo: true, repeat: 1 }, 6.55);
+      tl.to("#vd-popup", { opacity: 0, scale: 0.96, duration: 0.25, ease: "power2.in" }, 6.8);
+
+      // DRY-RUN → ENFORCE: курсор идёт к переключателю
+      tl.to("#vd-cursor", { x: 1722, y: 186, duration: 1.0, ease: "power3.inOut" }, 10.9);
+      tl.to("#vd-cursor", { scale: 0.85, duration: 0.08, yoyo: true, repeat: 1 }, 12.05);
+      tl.fromTo("#vd-mode-knob", { x: 0, backgroundColor: "#4a3836" }, { x: 150, backgroundColor: "#d8322b", duration: 0.3, ease: "power3.out" }, 12.1);
+      tl.to("#vd-cursor", { x: 1960, y: 1120, duration: 0.8, ease: "power3.in" }, 12.6);
+
+      // последняя строка: перехваченный агент использует ключ — камера наезжает на неё
+      tl.to("#vd-r6", { backgroundColor: "rgba(216,50,43,0.22)", duration: 0.3 }, 14.9);
+      tl.to("#vd-cam", { scale: 2.1, transformOrigin: "65% 76%", duration: 1.0, ease: "power3.in" }, 15.0);
+      tl.to("#vd-cam", { opacity: 0, duration: 0.25 }, 15.75);
+
+      window.__timelines["verdicts"] = tl;
+    })();
+  </script>
+</template>

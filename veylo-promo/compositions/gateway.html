@@ -1,0 +1,285 @@
+<template>
+  <style>
+    @font-face { font-family: "Beer Money"; src: url("assets/fonts/beermoney.ttf") format("truetype"); }
+    @font-face { font-family: "Gunny Rewritten"; src: url("assets/fonts/gunny.ttf") format("truetype"); }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #f4eee8;
+      font-family: "Veylo Mono", monospace;
+    }
+    .agent-tile {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 36px;
+      background: linear-gradient(160deg, #d8322b, #8e1010);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .agent-tile svg {
+      width: 112px;
+      height: 112px;
+    }
+    #gw-agent {
+      left: 128px;
+      top: 250px;
+    }
+    #gw-agent-name {
+      position: absolute;
+      left: 104px;
+      top: 474px;
+      font-size: 30px;
+      color: #ee8a74;
+      white-space: nowrap;
+    }
+    .tool {
+      position: absolute;
+      left: 1540px;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+    .tool .ic {
+      width: 120px;
+      height: 120px;
+      border-radius: 26px;
+      background: #2a0e10;
+      border: 2px solid rgba(238, 138, 116, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tool svg {
+      width: 60px;
+      height: 60px;
+    }
+    .tool .lb {
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 42px;
+      white-space: nowrap;
+    }
+    #gw-lines {
+      position: absolute;
+      inset: 0;
+    }
+    #gw-box {
+      position: absolute;
+      left: 640px;
+      top: 170px;
+      width: 640px;
+      height: 680px;
+      border-radius: 32px;
+      background: rgba(30, 10, 12, 0.92);
+      border: 3px solid #d8322b;
+    }
+    #gw-eye {
+      position: absolute;
+      left: 780px;
+      top: 210px;
+      width: 360px;
+      height: 360px;
+    }
+    #gw-name {
+      position: absolute;
+      left: 640px;
+      width: 640px;
+      top: 372px;
+      text-align: center;
+      font-family: "Beer Money", cursive;
+      font-size: 104px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    #gw-mcp {
+      position: absolute;
+      left: 640px;
+      width: 640px;
+      top: 486px;
+      text-align: center;
+      font-size: 30px;
+      color: #ee8a74;
+    }
+    .gw-slot {
+      position: absolute;
+      width: 132px;
+      height: 64px;
+      border-radius: 12px;
+      border: 2px dashed rgba(238, 138, 116, 0.45);
+    }
+    #gw-vault-label {
+      position: absolute;
+      left: 640px;
+      width: 640px;
+      top: 770px;
+      text-align: center;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 40px;
+      color: #ee8a74;
+    }
+    .key {
+      position: absolute;
+      width: 132px;
+      height: 64px;
+      border-radius: 12px;
+      background: #ee8a74;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .key svg {
+      width: 72px;
+      height: 40px;
+    }
+    .gw-cap {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 920px;
+      text-align: center;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 62px;
+      white-space: nowrap;
+    }
+    .gw-cap .w {
+      display: inline-block;
+      margin: 0 0.14em;
+    }
+    .gw-cap .acc {
+      color: #d8322b;
+    }
+  </style>
+  <div id="root" data-composition-id="gateway" data-width="1920" data-height="1080">
+    <svg id="gw-lines" viewBox="0 0 1920 1080" fill="none">
+      <g id="gw-direct" stroke="#8f7774" stroke-width="3" stroke-dasharray="10 12">
+        <path d="M330 530 L1540 230" /><path d="M330 530 L1540 420" /><path d="M330 530 L1540 610" /><path d="M330 530 L1540 800" />
+      </g>
+      <g id="gw-via" stroke="#d8322b" stroke-width="4">
+        <path id="gw-l0" d="M330 530 L640 530" />
+        <path d="M1280 530 L1540 230" /><path d="M1280 530 L1540 420" /><path d="M1280 530 L1540 610" /><path d="M1280 530 L1540 800" />
+      </g>
+    </svg>
+
+    <div id="gw-agent" class="agent-tile">
+      <svg viewBox="0 0 48 48" fill="none" stroke="#f4eee8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="15" width="30" height="24" rx="6" /><path d="M24 15V8" /><circle cx="24" cy="7" r="2.2" />
+        <circle cx="18" cy="27" r="2.4" fill="#f4eee8" /><circle cx="30" cy="27" r="2.4" fill="#f4eee8" /><path d="M5 25v6M43 25v6" />
+      </svg>
+    </div>
+    <div id="gw-agent-name">support-agent</div>
+
+    <div class="tool" id="gw-t1" style="top: 170px">
+      <div class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#ee8a74" stroke-width="3" stroke-linejoin="round"><rect x="6" y="11" width="36" height="26" rx="4" /><path d="M7 13l17 13 17-13" /></svg></div>
+      <span class="lb">почта</span>
+    </div>
+    <div class="tool" id="gw-t2" style="top: 360px">
+      <div class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#ee8a74" stroke-width="3" stroke-linejoin="round"><path d="M6 14h36v7a4 4 0 0 0 0 8v7H6v-7a4 4 0 0 0 0-8z" /><path d="M20 14v22" stroke-dasharray="3 4" /></svg></div>
+      <span class="lb">Jira</span>
+    </div>
+    <div class="tool" id="gw-t3" style="top: 550px">
+      <div class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#ee8a74" stroke-width="3"><ellipse cx="24" cy="12" rx="14" ry="5" /><path d="M10 12v24c0 2.8 6.3 5 14 5s14-2.2 14-5V12M10 24c0 2.8 6.3 5 14 5s14-2.2 14-5" /></svg></div>
+      <span class="lb">CRM, базы</span>
+    </div>
+    <div class="tool" id="gw-t4" style="top: 740px">
+      <div class="ic"><svg viewBox="0 0 48 48" fill="none" stroke="#ee8a74" stroke-width="3"><circle cx="24" cy="24" r="16" /><path d="M8 24h32M24 8c6 6 6 26 0 32M24 8c-6 6-6 26 0 32" /></svg></div>
+      <span class="lb">внешние API</span>
+    </div>
+
+    <div id="gw-box"></div>
+    <div id="gw-name">ВЭЙЛО</div>
+    <div id="gw-mcp">MCP-сервер для агента</div>
+    <div class="gw-slot" style="left: 760px; top: 580px"></div>
+    <div class="gw-slot" style="left: 1028px; top: 580px"></div>
+    <div class="gw-slot" style="left: 760px; top: 676px"></div>
+    <div class="gw-slot" style="left: 1028px; top: 676px"></div>
+    <div id="gw-vault-label">ключи доступа</div>
+
+    <svg id="gw-eye" viewBox="0 0 200 200">
+      <defs><clipPath id="gw-eyeclip"><path d="M8,100 C44,20 156,20 192,100 C156,180 44,180 8,100 Z" /></clipPath></defs>
+      <path d="M8,100 C44,20 156,20 192,100 C156,180 44,180 8,100 Z" fill="#140809" />
+      <g clip-path="url(#gw-eyeclip)">
+        <circle cx="100" cy="100" r="47" fill="rgba(175,21,21,0.18)" />
+        <g stroke="#d8322b" stroke-width="3" stroke-linecap="round">
+          <line x1="100" y1="100" x2="100" y2="53" /><line x1="100" y1="100" x2="136.75" y2="70.7" /><line x1="100" y1="100" x2="145.82" y2="110.46" />
+          <line x1="100" y1="100" x2="120.39" y2="142.35" /><line x1="100" y1="100" x2="79.61" y2="142.35" /><line x1="100" y1="100" x2="54.18" y2="110.46" />
+          <line x1="100" y1="100" x2="63.25" y2="70.7" />
+        </g>
+        <g stroke="#d8322b" stroke-width="3" fill="none" stroke-linejoin="round">
+          <path d="M100.00,84.00 Q105.83,87.89 112.51,90.02 Q113.10,97.01 115.60,103.56 Q110.51,108.38 106.94,114.42 Q100.00,113.44 93.06,114.42 Q89.49,108.38 84.40,103.56 Q86.90,97.01 87.49,90.02 Q94.17,87.89 100.00,84.00" />
+          <path d="M100.00,68.00 Q111.66,75.78 125.02,80.05 Q126.21,94.02 131.20,107.12 Q121.02,116.76 113.88,128.83 Q100.00,126.88 86.12,128.83 Q78.98,116.76 68.80,107.12 Q73.79,94.02 74.98,80.05 Q88.34,75.78 100.00,68.00" />
+          <path d="M100.00,53.00 Q117.13,64.43 136.75,70.70 Q138.49,91.21 145.82,110.46 Q130.87,124.62 120.39,142.35 Q100.00,139.48 79.61,142.35 Q69.13,124.62 54.18,110.46 Q61.51,91.21 63.25,70.70 Q82.87,64.43 100.00,53.00" />
+        </g>
+        <circle cx="100" cy="100" r="9" fill="#f4eee8" />
+      </g>
+      <path d="M8,100 C44,20 156,20 192,100 C156,180 44,180 8,100 Z" fill="none" stroke="#d8322b" stroke-width="7" stroke-linejoin="round" />
+    </svg>
+
+    <!-- ключи лежат у инструментов и переезжают в шлюз -->
+    <div class="key" id="gw-k1" style="left: 1380px; top: 168px"><svg viewBox="0 0 72 40" fill="none" stroke="#1d1a1a" stroke-width="4" stroke-linecap="round"><circle cx="16" cy="20" r="9" /><path d="M25 20h38M52 20v9M61 20v7" /></svg></div>
+    <div class="key" id="gw-k2" style="left: 1380px; top: 358px"><svg viewBox="0 0 72 40" fill="none" stroke="#1d1a1a" stroke-width="4" stroke-linecap="round"><circle cx="16" cy="20" r="9" /><path d="M25 20h38M52 20v9M61 20v7" /></svg></div>
+    <div class="key" id="gw-k3" style="left: 1380px; top: 548px"><svg viewBox="0 0 72 40" fill="none" stroke="#1d1a1a" stroke-width="4" stroke-linecap="round"><circle cx="16" cy="20" r="9" /><path d="M25 20h38M52 20v9M61 20v7" /></svg></div>
+    <div class="key" id="gw-k4" style="left: 1380px; top: 738px"><svg viewBox="0 0 72 40" fill="none" stroke="#1d1a1a" stroke-width="4" stroke-linecap="round"><circle cx="16" cy="20" r="9" /><path d="M25 20h38M52 20v9M61 20v7" /></svg></div>
+
+    <div id="gw-cap1" class="gw-cap clip" data-start="1.6" data-duration="3.3">
+      <span class="w">Агент</span><span class="w">видит</span><span class="w">шлюз</span><span class="w">как</span><span class="w">обычный</span><span class="w">MCP-сервер</span>
+    </div>
+    <div id="gw-cap2" class="gw-cap clip" data-start="5.0" data-duration="3.9">
+      <span class="w">Ключи</span><span class="w">доступа</span><span class="w">—</span><span class="w acc">только</span><span class="w acc">у</span><span class="w acc">шлюза</span>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // агент опускается на ось, глаз уходит в шапку шлюза, шлюз вырастает вокруг
+      tl.fromTo("#gw-agent", { y: 0 }, { y: 180, duration: 0.7, ease: "power2.inOut" }, 0);
+      tl.fromTo("#gw-agent-name", { y: 0 }, { y: 180, duration: 0.7, ease: "power2.inOut" }, 0);
+      tl.fromTo("#gw-eye", { scale: 1, y: 0 }, { scale: 0.42, y: -130, duration: 0.7, ease: "power2.inOut" }, 0);
+      tl.fromTo("#gw-box", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: "expo.out" }, 0.25);
+      tl.fromTo(["#gw-name", "#gw-mcp"], { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.12 }, 0.6);
+      tl.fromTo(".gw-slot, #gw-vault-label", { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.05 }, 0.8);
+      tl.fromTo(".key", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, stagger: 0.06, ease: "back.out(1.6)" }, 0.3);
+
+      // прямые связи агента с инструментами исчезают, остаются только через шлюз
+      tl.fromTo("#gw-direct", { opacity: 1 }, { opacity: 0, duration: 0.35, ease: "power2.in" }, 0.7);
+      const via = gsap.utils.toArray("#gw-via path");
+      via.forEach((p) => {
+        const L = p.getTotalLength();
+        gsap.set(p, { strokeDasharray: L, strokeDashoffset: L });
+      });
+      tl.to(via, { strokeDashoffset: 0, duration: 0.5, stagger: 0.07, ease: "power2.out" }, 0.9);
+
+      tl.fromTo("#gw-cap1 .w", { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, 1.65);
+      tl.to("#gw-cap1 .w", { opacity: 0, filter: "blur(8px)", duration: 0.16, stagger: 0.03, ease: "power2.in" }, 4.55);
+
+      // ключи переезжают в хранилище шлюза
+      const slots = [[760, 580], [1028, 580], [760, 676], [1028, 676]];
+      const starts = [[1380, 168], [1380, 358], [1380, 548], [1380, 738]];
+      slots.forEach((s, i) => {
+        tl.to("#gw-k" + (i + 1), { x: s[0] - starts[i][0], y: s[1] - starts[i][1], duration: 0.65, ease: "power3.inOut" }, 3.2 + i * 0.12);
+      });
+      tl.to("#gw-vault-label", { color: "#f4eee8", duration: 0.3 }, 3.9);
+
+      tl.fromTo("#gw-cap2 .w", { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, 5.05);
+
+      // уход: всё, кроме корпуса шлюза, расходится; корпус станет консолью
+      tl.to("#gw-cap2 .w", { opacity: 0, filter: "blur(8px)", duration: 0.16, stagger: 0.03, ease: "power2.in" }, 8.3);
+      tl.to(["#gw-agent", "#gw-agent-name"], { x: -420, duration: 0.45, ease: "power3.in" }, 8.45);
+      tl.to(".tool", { x: 480, duration: 0.45, stagger: 0.03, ease: "power3.in" }, 8.45);
+      tl.to(["#gw-lines", ".key", ".gw-slot", "#gw-vault-label", "#gw-name", "#gw-mcp", "#gw-eye"], { opacity: 0, duration: 0.25 }, 8.45);
+
+      window.__timelines["gateway"] = tl;
+    })();
+  </script>
+</template>

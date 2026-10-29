@@ -1,0 +1,134 @@
+<template>
+  <style>
+    @font-face { font-family: "Beer Money"; src: url("assets/fonts/beermoney.ttf") format("truetype"); }
+    @font-face { font-family: "Gunny Rewritten"; src: url("assets/fonts/gunny.ttf") format("truetype"); }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #f4eee8;
+      font-family: "Veylo Mono", monospace;
+    }
+    #ec-diamond {
+      position: absolute;
+      left: 940px;
+      top: 410px;
+      width: 40px;
+      height: 40px;
+      background: #f4eee8;
+    }
+    #ec-arcs {
+      position: absolute;
+      left: 610px;
+      top: 80px;
+      width: 700px;
+      height: 700px;
+    }
+    #ec-eye {
+      position: absolute;
+      left: 740px;
+      top: 210px;
+      width: 440px;
+      height: 440px;
+    }
+    #ec-name {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 660px;
+      text-align: center;
+      font-family: "Beer Money", cursive;
+      font-size: 200px;
+      line-height: 1;
+      letter-spacing: 0.06em;
+    }
+    #ec-latin {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 872px;
+      text-align: center;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: 0.6em;
+      color: #ee8a74;
+      padding-left: 0.6em;
+    }
+    #ec-proj {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 940px;
+      text-align: center;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+      color: #c9b3ae;
+    }
+  </style>
+  <div id="root" data-composition-id="endcard" data-width="1920" data-height="1080">
+    <svg id="ec-arcs" data-layout-allow-overflow viewBox="0 0 700 700" fill="none" stroke-linecap="round">
+      <circle id="ec-arc1" cx="350" cy="350" r="330" stroke="#d8322b" stroke-width="8" stroke-dasharray="520 1554" transform="rotate(-70 350 350)" />
+      <circle id="ec-arc2" cx="350" cy="350" r="330" stroke="#ee8a74" stroke-width="5" stroke-dasharray="300 1774" transform="rotate(150 350 350)" />
+      <circle id="ec-ring" cx="350" cy="350" r="290" stroke="#d8322b" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="3 14" />
+    </svg>
+    <svg id="ec-eye" viewBox="0 0 200 200">
+      <defs><clipPath id="ec-eyeclip"><path d="M8,100 C44,20 156,20 192,100 C156,180 44,180 8,100 Z" /></clipPath></defs>
+      <path d="M8,100 C44,20 156,20 192,100 C156,180 44,180 8,100 Z" fill="#140809" id="ec-fill" />
+      <g clip-path="url(#ec-eyeclip)">
+        <circle id="ec-iris" cx="100" cy="100" r="47" fill="rgba(175,21,21,0.18)" />
+        <g stroke="#d8322b" stroke-width="3" stroke-linecap="round" class="ec-spokes">
+          <line x1="100" y1="100" x2="100" y2="53" /><line x1="100" y1="100" x2="136.75" y2="70.7" /><line x1="100" y1="100" x2="145.82" y2="110.46" />
+          <line x1="100" y1="100" x2="120.39" y2="142.35" /><line x1="100" y1="100" x2="79.61" y2="142.35" /><line x1="100" y1="100" x2="54.18" y2="110.46" />
+          <line x1="100" y1="100" x2="63.25" y2="70.7" />
+        </g>
+        <g stroke="#d8322b" stroke-width="3" fill="none" stroke-linejoin="round" class="ec-rings">
+          <path d="M100.00,84.00 Q105.83,87.89 112.51,90.02 Q113.10,97.01 115.60,103.56 Q110.51,108.38 106.94,114.42 Q100.00,113.44 93.06,114.42 Q89.49,108.38 84.40,103.56 Q86.90,97.01 87.49,90.02 Q94.17,87.89 100.00,84.00" />
+          <path d="M100.00,68.00 Q111.66,75.78 125.02,80.05 Q126.21,94.02 131.20,107.12 Q121.02,116.76 113.88,128.83 Q100.00,126.88 86.12,128.83 Q78.98,116.76 68.80,107.12 Q73.79,94.02 74.98,80.05 Q88.34,75.78 100.00,68.00" />
+          <path d="M100.00,53.00 Q117.13,64.43 136.75,70.70 Q138.49,91.21 145.82,110.46 Q130.87,124.62 120.39,142.35 Q100.00,139.48 79.61,142.35 Q69.13,124.62 54.18,110.46 Q61.51,91.21 63.25,70.70 Q82.87,64.43 100.00,53.00" />
+        </g>
+        <circle id="ec-pupil" cx="100" cy="100" r="9" fill="#f4eee8" />
+      </g>
+      <path id="ec-outline" d="M8,100 C44,20 156,20 192,100 C156,180 44,180 8,100 Z" fill="none" stroke="#d8322b" stroke-width="7" stroke-linejoin="round" />
+    </svg>
+    <div id="ec-diamond"></div>
+    <div id="ec-name">ВЭЙЛО</div>
+    <div id="ec-latin">VEYLO</div>
+    <div id="ec-proj">ПРОЕКТ № 2592 · МИЭМ НИУ ВШЭ · 2026/2027</div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // ромб защиты падает в центр и становится зрачком
+      tl.fromTo("#ec-diamond", { rotation: 45, scale: 1 }, { rotation: 225, scale: 0.4, duration: 0.4, ease: "power3.in" }, 0);
+      tl.to("#ec-diamond", { opacity: 0, duration: 0.05 }, 0.38);
+      tl.fromTo("#ec-pupil", { attr: { r: 0 } }, { attr: { r: 9 }, duration: 0.35, ease: "back.out(2.2)" }, 0.4);
+      tl.fromTo("#ec-fill", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.4);
+      const outline = document.getElementById("ec-outline");
+      const oL = outline.getTotalLength();
+      tl.fromTo(outline, { strokeDasharray: oL, strokeDashoffset: oL }, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 0.4);
+      const spokes = gsap.utils.toArray(".ec-spokes line");
+      const spokeEnds = spokes.map((l) => ({ x2: +l.getAttribute("x2"), y2: +l.getAttribute("y2") }));
+      tl.fromTo(spokes, { attr: { x2: 100, y2: 100 } },
+        { attr: (i) => spokeEnds[i], duration: 0.45, stagger: 0.035, ease: "expo.out" }, 0.55);
+      tl.fromTo(".ec-rings path", { scale: 0, svgOrigin: "100 100" }, { scale: 1, duration: 0.55, stagger: 0.09, ease: "expo.out" }, 0.7);
+      tl.fromTo("#ec-iris", { attr: { r: 0 } }, { attr: { r: 47 }, duration: 0.6, ease: "expo.out" }, 0.6);
+      tl.fromTo("#ec-arc1", { strokeDasharray: "0 2074" }, { strokeDasharray: "520 1554", duration: 0.8, ease: "power3.out" }, 0.8);
+      tl.fromTo("#ec-arc2", { strokeDasharray: "0 2074" }, { strokeDasharray: "300 1774", duration: 0.8, ease: "power3.out" }, 0.95);
+      tl.fromTo("#ec-ring", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.9);
+
+      // имя стирается слева направо, потом латиница и подпись проекта
+      tl.fromTo("#ec-name", { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.55, ease: "power3.out" }, 1.15);
+      tl.fromTo("#ec-latin", { opacity: 0, scaleX: 1.25 }, { opacity: 1, scaleX: 1, duration: 0.6, ease: "expo.out" }, 1.6);
+      tl.fromTo("#ec-proj", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25 }, 2.0);
+      window.__timelines["endcard"] = tl;
+    })();
+  </script>
+</template>

