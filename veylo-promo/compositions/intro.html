@@ -1,0 +1,125 @@
+<template>
+  <style>
+    @font-face { font-family: "Beer Money"; src: url("assets/fonts/beermoney.ttf") format("truetype"); }
+    @font-face { font-family: "Gunny Rewritten"; src: url("assets/fonts/gunny.ttf") format("truetype"); }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 400; src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-cyrillic-700-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Mono"; font-weight: 700; src: url("assets/fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-cyrillic-400-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-cyrillic-600-normal.woff2") format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: "Veylo Sans"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2122, U+2191-2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #f4eee8;
+      font-family: "Veylo Mono", monospace;
+    }
+    #in-label {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 250px;
+      text-align: center;
+      font-size: 30px;
+      letter-spacing: 0.3em;
+      color: #ee8a74;
+    }
+    #in-title {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 420px;
+      text-align: center;
+      font-family: "Beer Money", cursive;
+      font-size: 190px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    #in-title .l {
+      display: inline-block;
+    }
+    #in-clock {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 380px;
+      height: 220px;
+      text-align: center;
+      font-size: 200px;
+      font-weight: 700;
+      line-height: 220px;
+    }
+    #in-clock span {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 0;
+      opacity: 0;
+    }
+    #in-sub {
+      position: absolute;
+      left: 0;
+      width: 1920px;
+      top: 650px;
+      text-align: center;
+      font-family: "Gunny Rewritten", cursive;
+      font-size: 60px;
+      white-space: nowrap;
+    }
+    #in-sub .w {
+      display: inline-block;
+      margin: 0 0.13em;
+    }
+    #in-iris {
+      position: absolute;
+      inset: 0;
+      background: #edeae4;
+      clip-path: circle(0px at 960px 490px);
+    }
+  </style>
+  <div id="root" data-composition-id="intro" data-width="1920" data-height="1080">
+    <div id="in-label" class="clip" data-start="0" data-duration="2.8">ПРОЕКТ № 2592 · МИЭМ НИУ ВШЭ</div>
+    <div id="in-title" class="clip" data-start="0.3" data-duration="2.5">
+      <span class="l">О</span><span class="l">Д</span><span class="l">И</span><span class="l">Н</span><span class="l">&nbsp;</span><span class="l">Р</span><span class="l">А</span><span class="l">Б</span><span class="l">О</span><span class="l">Ч</span><span class="l">И</span><span class="l">Й</span><span class="l">&nbsp;</span><span class="l">Д</span><span class="l">Е</span><span class="l">Н</span><span class="l">Ь</span>
+    </div>
+    <div id="in-clock" data-layout-allow-occlusion class="clip" data-start="2.7" data-duration="3.3">
+      <span>14:01:57</span><span>14:01:58</span><span>14:01:59</span><span id="in-c4" data-layout-allow-occlusion>14:02:00</span>
+    </div>
+    <div id="in-sub" class="clip" data-start="2.9" data-duration="3.1">
+      <span class="w">ИИ-агент</span><span class="w">поддержки</span><span class="w">разбирает</span><span class="w">почту</span><span class="w">компании</span>
+    </div>
+    <div id="in-iris"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      // подпись проекта и заголовок
+      
+      tl.fromTo("#in-title .l", { opacity: 0, filter: "blur(10px)", y: 0 },
+        { opacity: 1, filter: "blur(0px)", duration: 0.2, stagger: 0.045, ease: "power2.out" }, 0.35);
+      tl.to(["#in-title .l", "#in-label"], { opacity: 0, filter: "blur(10px)", duration: 0.18, stagger: 0.01, ease: "power2.in" }, 2.45);
+
+      // часы тикают до 14:02:00
+      const ticks = gsap.utils.toArray("#in-clock span");
+      const at = [2.75, 3.35, 3.95, 4.55];
+      ticks.forEach((el, i) => {
+        if (i === 0) tl.fromTo(el, { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2 }, at[0]);
+        else tl.set(el, { opacity: 1 }, at[i]);
+        if (i < ticks.length - 1) tl.set(el, { opacity: 0 }, at[i + 1]);
+      });
+      tl.fromTo("#in-c4", { color: "#f4eee8", scale: 1 }, { color: "#d8322b", scale: 1.06, duration: 0.15, ease: "power2.out", immediateRender: false }, 4.55);
+      tl.to("#in-c4", { scale: 1, duration: 0.3, ease: "power2.out" }, 4.7);
+      tl.fromTo("#in-sub .w", { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.15, stagger: 0.07, ease: "power2.out" }, 2.95);
+
+      // из часов раскрывается светлый мир почты
+      tl.to("#in-sub .w", { opacity: 0, filter: "blur(8px)", duration: 0.15, stagger: 0.02 }, 5.1);
+      tl.to("#in-iris", { clipPath: "circle(1250px at 960px 490px)", duration: 0.65, ease: "power3.in" }, 5.3);
+
+      window.__timelines["intro"] = tl;
+    })();
+  </script>
+</template>
